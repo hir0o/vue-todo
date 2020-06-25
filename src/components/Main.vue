@@ -8,5 +8,6 @@
     main {
         flex-basis: calc(100% - 17rem);
         width: calc(100% - 17rem);
+        padding: 5rem;
     }
 </style>

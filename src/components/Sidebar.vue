@@ -1,8 +1,12 @@
 <template>
     <aside class="sidebar">
         <ul class="sidebar__list">
-            <li class="sidebar__item"><router-link class="sidebar__link" :to="{ name: 'todo' }">TODOリスト</router-link></li>
-            <li class="sidebar__item"><router-link class="sidebar__link" :to="{ name: 'about' }">このサイトについて</router-link></li>
+            <li class="sidebar__item">
+                <router-link class="sidebar__link" :to="{ name: 'todo' }">TODOリスト</router-link>
+            </li>
+            <li class="sidebar__item">
+                <router-link class="sidebar__link" :to="{ name: 'about' }">このサイトについて</router-link>
+            </li>
         </ul>
     </aside>
 </template>
