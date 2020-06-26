@@ -1,6 +1,7 @@
 <template>
   <div class="tasks">
     <ul class="tasks__list">
+      <!-- <li v-for="task in this.$store.getters.tasks" :key="task.key" class="tasks__item"> -->
       <li v-for="task in tasks" :key="task.key" class="tasks__item">
         <input
           type="checkbox"
@@ -8,7 +9,7 @@
           :value="task.id"
           v-model="doneTaskIds"
         />
-        {{ task.name }} {{ task.done }}
+        {{ task.name }}
       </li>
     </ul>
     <div class="form">
@@ -33,19 +34,20 @@ export default {
   methods: {
     // ストアの、addTaskミューテーションを呼ぶ
     addTask() {
-      this.$store.commit("addTask", {
-        name: this.newTaskName,
-      });
+      if(this.newTaskName == "") {
+        alert("タスクを選択してください。");
+        return false;
+      }
+      this.$store.dispatch("addTask", this.newTaskName);
       this.newTaskName = "";
     },
     doneTasks() {
       if (this.doneTaskIds.length == 0) {
-        alert("タスクを選択してください。")
+        alert("タスクを選択してください。");
         return false;
       }
-      this.$store.commit("doneTasks", {
-        ids: this.doneTaskIds
-      })
+      this.$store.dispatch("doneTasks", this.doneTaskIds)
+      this.doneTaskIds.length = 0;
     }
   },
   // ストアのステートを呼ぶ

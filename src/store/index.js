@@ -10,29 +10,35 @@ export default new Vuex.Store({
   },
   // ステートの変更をする
   mutations: {
-    addTask(state, { name }) {
+    addTask(state, name) {
       state.tasks.push(
         {
           id: state.nextTaskId,
-          name,
+          name: name,
           done: false
         },
       )
       state.nextTaskId++
     },
-    doneTasks(state, { ids }) {
+    doneTasks(state, ids) {
       ids.forEach(id => {
         state.tasks[id].done = true
       })
     }
   },
-  getters: {
-    tasks(state) {
-      return state.tasks
+  actions: {
+    addTask({ commit }, name) {
+      commit('addTask', name)// 第二引数で、値を渡すことができる
+    },
+    doneTasks({ commit }, ids) {
+      commit('doneTasks', ids)// 第二引数で、値を渡すことができる
     }
   },
-  actions: {
-  },
-  modules: {
+  getters: {
+    tasks(state) {
+      return state.tasks.filter(task => {
+        return task.done == false
+      })
+    }
   }
 })
