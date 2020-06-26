@@ -1,11 +1,14 @@
 <template>
   <div class="tasks">
     <ul class="tasks__list">
-      <li v-for="task in tasks" v-bind:key="task.key" class="tasks__item">
-        <input type="checkbox" v-bind:checked="task.done" @change="toggleTaskStatus(task)" :id="task.key" />
-        <label for="done">
-          {{ task.name }}
-        </label>
+      <li v-for="task in tasks" :key="task.key" class="tasks__item">
+        <input
+          type="checkbox"
+          :id="task.key"
+          :value="task.id"
+          v-model="doneTaskIds"
+        />
+        {{ task.name }} {{ task.done }}
       </li>
     </ul>
     <div class="form">
@@ -13,7 +16,7 @@
         <input type="text" v-model="newTaskName" plabceholder="新しいタスク" class="form__input" />
         <input type="submit" class="form__submit">
       </form>
-      <input type="button" class="form__done" value="タスクを完了にする">
+      <input type="button" class="form__done" value="タスクを完了にする" @click.prevent="doneTasks">
     </div>
   </div>
 </template>
@@ -24,9 +27,9 @@ export default {
   data() {
     return {
       newTaskName: "",
+      doneTaskIds: []
     };
   },
-
   methods: {
     // ストアの、addTaskミューテーションを呼ぶ
     addTask() {
@@ -34,15 +37,24 @@ export default {
         name: this.newTaskName,
       });
       this.newTaskName = "";
+    },
+    doneTasks() {
+      if (this.doneTaskIds.length == 0) {
+        alert("タスクを選択してください。")
+        return false;
+      }
+      this.$store.commit("doneTasks", {
+        ids: this.doneTaskIds
+      })
     }
   },
-    // ストアのステートを呼ぶ
+  // ストアのステートを呼ぶ
   computed: {
     tasks() {
       return this.$store.getters.tasks;
     }
   }
-  }
+}
 </script>
 
 <style scoped lang="scss">

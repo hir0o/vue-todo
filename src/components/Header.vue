@@ -6,8 +6,11 @@
 
 <style lang="scss" scoped>
     .header {
+        position: sticky;
+        top: 0;
         background-color: #1876D1;
         padding: 1rem 3rem;
+        z-index: 999;
         &__ttl {
             color: #fff;
         }

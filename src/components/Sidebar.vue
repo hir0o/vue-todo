@@ -14,9 +14,9 @@
 <style lang="scss" scoped>
     .sidebar {
         position: sticky;
-        top: 4rem;
+        top: 5rem;
         height: 100%;
-        min-height: calc(100vh - 4rem);
+        min-height: calc(100vh - 5rem);
         background: #F0F1F4;
         flex-basis: 17rem;
         width: 17rem;

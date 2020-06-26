@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     tasks: [],
-    nextTaskId: 1,
+    nextTaskId: 0,
   },
   // ステートの変更をする
   mutations: {
@@ -20,6 +20,11 @@ export default new Vuex.Store({
       )
       state.nextTaskId++
     },
+    doneTasks(state, { ids }) {
+      ids.forEach(id => {
+        state.tasks[id].done = true
+      })
+    }
   },
   getters: {
     tasks(state) {
